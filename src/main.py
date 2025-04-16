@@ -6,7 +6,7 @@ from getpass import getpass
 
 # logo
 system("cat logo.txt")
-column = ['street number', 'street name', 'city', 'state', 'zip', 'room number', 'square foot', 'price', 'bedrooms']
+column = ['property_id', 'address', 'room_number', 'square_foot', 'for_rent', 'price', 'room_amount', 'landord_id']
 
 connected = False
 
@@ -22,7 +22,7 @@ while not connected:
                     host='localhost', 
                     user=username, 
                     password = pw, 
-                    db='final',) 
+                    db='rental_system',) 
         connected = True
     except pymysql.Error as ex:
         print('username or password is invalid please enter again')
@@ -47,7 +47,7 @@ while choice != 3:
     # if user select 1, show all listings
     elif usr_choice == '1':
         print('\n')
-        cur.execute("SELECT * FROM property")
+        cur.execute("SELECT * FROM properties")
         output = cur.fetchall()
         table = []
         for item in output:
