@@ -96,6 +96,47 @@ while choice != 3:
             print(tabulate(table, headers = column, tablefmt="grid", maxcolwidths=[None, None, columns // 3]))
             print('\n')
         
+        if filter == '2':
+            print('\n')
+            option = ''
+            while option not in ['1', '2']:
+                option = input('1. Search by value\n2. Search by range\nPlease select how you want to search: ')
+            if option == '1':
+                col = ''
+                asc = ''
+                while col not in column:
+                    col = input('Name of columns: street number, street name, city, \nstate, zip, room number, square foot, price, bedrooms\n' \
+                    'Select column you want to sort by: ').lower()
+                    if col not in column:
+                        print('Column not exist, please enter a valid value! \n')
+                print('\n')
+
+                cur.execute(f'SELECT {col} FROM property')
+                output = cur.fetchall()
+                table = []
+                for item in output:
+                    table.extend(list(item))
+
+                for i in range(len(table)):
+                    table[i] = str(table[i])
+                print(table)
+                print(type(table[0]))
+                
+                while asc not in table:
+                    asc = str(input('Please enter value you are searching for: '))
+                    if asc not in table:
+                        print('Value is not found')
+                
+                cur.execute(f"SELECT * FROM property WHERE {col} = {asc}")
+                output = cur.fetchall()
+                table = []
+                for item in output:
+                    table.append(list(item))
+                result = list(row[0] for row in output)
+                columns = os.get_terminal_size().columns
+                print(tabulate(table, headers = column, tablefmt="grid", maxcolwidths=[None, None, columns // 3]))
+                print('\n')
+
     else:
         print("Error! Please enter a valid choice!")
         print("\n")
