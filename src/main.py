@@ -101,6 +101,8 @@ while choice != 3:
             option = ''
             while option not in ['1', '2']:
                 option = input('1. Search by value\n2. Search by range\nPlease select how you want to search: ')
+
+            # search by value
             if option == '1':
                 col = ''
                 asc = ''
@@ -128,6 +130,37 @@ while choice != 3:
                         print('Value is not found')
                 
                 cur.execute(f"SELECT * FROM property WHERE {col} = {asc}")
+                output = cur.fetchall()
+                table = []
+                for item in output:
+                    table.append(list(item))
+                result = list(row[0] for row in output)
+                columns = os.get_terminal_size().columns
+                print(tabulate(table, headers = column, tablefmt="grid", maxcolwidths=[None, None, columns // 3]))
+                print('\n')
+            if option == '2':
+                col = ''
+                low = ''
+                high = ''
+                while col not in ['square foot', 'price', 'bedrooms']:
+                    col = input('\nName of columns: square foot, price, bedrooms\n' \
+                    'Select column you want to sort by: ').lower()
+                    if col not in column:
+                        print('Column not exist, please enter a valid value! \n')
+                print('\n')
+
+                while type(low) != int and type(high) != int:
+                    low = input('Range starting from: ')
+                    high = input('Range go up to: ')
+
+                    try:
+                        low = int(low)
+                        high = int(high)
+                    except ValueError:
+                        print('Value is invalid please enter again')
+                
+                print(f'range from {low} to {high}')
+                cur.execute(f"SELECT * FROM property WHERE {col} >= {low} AND {col} <= {high}")
                 output = cur.fetchall()
                 table = []
                 for item in output:
