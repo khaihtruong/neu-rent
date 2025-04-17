@@ -16,7 +16,7 @@ def display_logo():
 def main_menu(cur, conn, authenticated_email):
     logged_in = True
     # These column headers are used when displaying listings.
-    column = ['property_id', 'address', 'room_number', 'square_foot', 
+    column = ['property_id', 'street_number', 'street_name', 'city', 'room_number', 'square_foot', 
               'for_rent', 'price', 'room_amount', 'landord_id']
     while logged_in:
         print("\nMain Menu:")
@@ -68,7 +68,7 @@ def main_menu(cur, conn, authenticated_email):
                 col = ''
                 asc = ''
                 while col not in column:
-                    col = input('Name of columns: street number, street name, city, \nstate, zip, room number, square foot, price, bedrooms\n' \
+                    col = input('Name of columns: street_number, street_name, city, \nstate, zip, room_number, square_foot, price, room_amount\n' \
                     'Select column you want to sort by: ').lower()
                     if col not in column:
                         print('Column not exist, please enter a valid value! \n')
@@ -103,7 +103,7 @@ def main_menu(cur, conn, authenticated_email):
                     col = ''
                     asc = ''
                     while col not in column:
-                        col = input('Name of columns: street number, street name, city, \nstate, zip, room number, square foot, price, bedrooms\n' \
+                        col = input('Name of columns: street_number, street_name, city, \nstate, zip, room_number, square_foot, price, room_amount\n' \
                         'Select column you want to sort by: ').lower()
                         if col not in column:
                             print('Column not exist, please enter a valid value! \n')
@@ -138,8 +138,8 @@ def main_menu(cur, conn, authenticated_email):
                     col = ''
                     low = ''
                     high = ''
-                    while col not in ['square foot', 'price', 'bedrooms']:
-                        col = input('\nName of columns: square foot, price, bedrooms\n' \
+                    while col not in ['square foot', 'price', 'room_amount']:
+                        col = input('\nName of columns: square_foot, price, room_amount\n' \
                         'Select column you want to sort by: ').lower()
                         if col not in column:
                             print('Column not exist, please enter a valid value! \n')

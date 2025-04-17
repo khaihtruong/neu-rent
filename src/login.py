@@ -5,10 +5,18 @@ from getpass import getpass
 import hashlib
 import uuid
 from filter import main_menu
+import re
 
 def signup(cursor, conn):
     print("\n=== Signup ===")
     email = input("Enter your email: ").strip()
+
+    # Email format validation using regex
+    email_regex = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+    if not re.match(email_regex, email):
+        print("Invalid email format. Please enter a valid email address.\n")
+        return None
+    
     # Verify that the email is unique by checking the user table.
     cursor.execute("SELECT * FROM user WHERE email = %s", (email,))
     if cursor.fetchone() is not None:
