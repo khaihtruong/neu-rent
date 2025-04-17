@@ -15,11 +15,11 @@ class RentalSystem:
         """Connect to the MySQL database."""
         try:
             self.connection = mysql.connector.connect(
-                host='localhost',
-                database='rental_system',
-                user='root',  # Replace with your MySQL username
-                password='red'  # Replace with your MySQL password
-            )
+            host='localhost',
+            database='rental_system',
+            user='root',
+            password='red',
+            auth_plugin='mysql_native_password' )
             if self.connection.is_connected():
                 print("Connected to MySQL database")
                 return True
