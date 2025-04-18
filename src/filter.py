@@ -6,12 +6,20 @@ from edit_listing import edit_listing
 from delete_listing import delete_listing
 
 def display_logo():
-    # Display logo.txt. On Windows, 'type' is used (or fallback to Python file I/O).
+    # Display logo.txt using platform-independent approach
+    import os
+    import platform
+    
     try:
-        os.system("cat logo.txt")
+        # Check operating system and use appropriate command
+        if platform.system() == "Windows":
+            os.system("type logo.txt")
+        else:
+            os.system("cat logo.txt")
     except Exception:
+        # Fallback to Python file I/O if system commands fail
         try:
-            with open("logo.txt", "r") as file:
+            with open("../../../../Desktop/neu-rent-master minimal/src/logo.txt", "r") as file:
                 print(file.read())
         except Exception:
             print("Logo not available.")
