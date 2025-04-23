@@ -6,12 +6,20 @@ from edit_listing import edit_listing
 from delete_listing import delete_listing
 
 def display_logo():
-    # Display logo.txt. On Windows, 'type' is used (or fallback to Python file I/O).
+    # Display logo.txt using platform-independent approach
+    import os
+    import platform
+    
     try:
-        os.system("cat logo.txt")
+        # Check operating system and use appropriate command
+        if platform.system() == "Windows":
+            os.system("type logo.txt")
+        else:
+            os.system("cat logo.txt")
     except Exception:
+        # Fallback to Python file I/O if system commands fail
         try:
-            with open("logo.txt", "r") as file:
+            with open("../../../../Desktop/neu-rent-master minimal/src/logo.txt", "r") as file:
                 print(file.read())
         except Exception:
             print("Logo not available.")
@@ -19,7 +27,7 @@ def display_logo():
 def main_menu(cur, conn, authenticated_email):
     logged_in = True
     # These column headers are used when displaying listings.
-    column = ['property_id', 'street_number', 'street_name', 'city', 'room_number', 'square_foot', 
+    column = ['property_id', 'street_number', 'street_name', 'city','state', 'room_number', 'square_foot', 
               'for_rent', 'price', 'room_amount', 'landord_id']
     while logged_in:
         print("\nMain Menu:")
@@ -109,7 +117,7 @@ def main_menu(cur, conn, authenticated_email):
                     asc = ''
                     while col not in column:
                         col = input('Name of columns: street_number, street_name, city, \nstate, zip, room_number, square_foot, price, room_amount\n' \
-                        'Select column you want to sort by: ').lower()
+                        'Select column you want to sort by: ')
                         if col not in column:
                             print('Column not exist, please enter a valid value! \n')
                     print('\n')
@@ -121,16 +129,16 @@ def main_menu(cur, conn, authenticated_email):
                         table.extend(list(item))
 
                     for i in range(len(table)):
-                        table[i] = str(table[i])
-                    print(table)
-                    print(type(table[0]))
+                        table[i] = str(table[i]).lower()
+                    #print(table)
+                    #print(type(table[0]))
                     
                     while asc not in table:
                         asc = str(input('Please enter value you are searching for: '))
-                        if asc not in table:
+                        if asc.lower() not in table:
                             print('Value is not found')
                     
-                    cur.execute(f"SELECT * FROM properties WHERE {col} = {asc}")
+                    cur.execute(f"SELECT * FROM properties WHERE {col} = '{asc.lower()}'")
                     output = cur.fetchall()
                     table = []
                     for item in output:
