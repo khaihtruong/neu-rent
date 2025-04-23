@@ -17,11 +17,11 @@ The main program is located in source. Navigate to source folder and run `python
 <ins>Insert new listing</ins>
 <img src="assets/insert.png" alt="insert">
 
-<ins>Search for specific value</ins>
+<ins>Search for specific value</ins>  
 example: look for listing available in New York
 <img src="assets/value.png" alt="value"> 
 
-<ins>Search for value within a range</ins>
+<ins>Search for value within a range</ins>  
 example: look for listing with price from 1000-2000
 <img src="assets/range.png" alt="range">
 
