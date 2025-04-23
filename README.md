@@ -9,7 +9,21 @@ Run the 'rental_system.sql' script in database folder to create the database. (E
 The main program is located in source. Navigate to source folder and run `python main.py`
 
 ## Demo
-<img src="assets/demo.png" alt="Preview">
+<img src="assets/demo.png" alt="Preview">  
+
+<ins>View all listings</ins>
+<img src="assets/alllistings.png" alt="all"> 
+  
+<ins>Insert new listing</ins>
+<img src="assets/insert.png" alt="insert">
+
+<ins>Search for specific value</ins>
+example: look for listing available in New York
+<img src="assets/value.png" alt="value"> 
+
+<ins>Search for value within a range</ins>
+example: look for listing with price from 1000-2000
+<img src="assets/range.png" alt="range">
 
 
 
